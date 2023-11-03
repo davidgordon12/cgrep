@@ -1,6 +1,7 @@
-FLAGS :=
-TARGET := bin/cgrep.exe
+FLAGS := -Iinclude
+TARGET := cgrep.exe
 
-run:
-	mkdir -p target
-	g++ src/*.cpp -o $(TARGET)
+source_files := src/*.cpp
+
+compile:
+	g++ $(source_files) $(FLAGS) -o $(TARGET)

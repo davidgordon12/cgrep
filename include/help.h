@@ -1,0 +1,1 @@
+bool validate(int argc);
