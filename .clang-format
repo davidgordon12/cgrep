@@ -1,0 +1,9 @@
+Language: Cpp
+IndentWidth: 4
+# Don't wrap comments for C++
+AlignTrailingComments: false
+# Use 80 columns for C++.
+ColumnLimit: 80
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
