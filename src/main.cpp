@@ -3,24 +3,24 @@
 #include "grep.h"
 #include "help.h"
 
-const int MAX_ARGS = 6;
+const int MAX_ARGS = 4;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     using namespace std;
-    if(!validate(argc)) return -1;
-    cout << "validated" << endl;
+    if (!validate(argc))
+        return -1;
 
-    //    1     2           3            4         5         6
-    // cgrep [regex] [--o || --help] <option> <directory> <output>
+    //    1     2           3               4
+    // cgrep [regex] <file || directory> <output>
     string args[MAX_ARGS];
-    for(int i = 1; i < argc; ++i) {
+    for (int i = 1; i < argc; ++i) {
         args[i] = argv[i];
     }
 
-    // do some validation here
-    bool result = process(argc, args);
+    Grep grep;
+    bool result = grep.process(argc, args);
 
-    if(!result) {
-        usage();
+    if (!result) {
+        cerr << "Ran into an error. Exiting." << endl;
     }
 }
