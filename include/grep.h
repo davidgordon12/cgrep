@@ -1,19 +1,24 @@
+/*  Grep.h: GPL-2.0
+ *  Entry point for Grep processing
+ *  Written by David Gordon
+ *  Last Edited: November 06, 2023
+ */
 #ifndef _GREP_H
 #define _GREP_H
 
 #include <vector>
 
 class Grep {
-  public:
+public:
     bool Process(int argc, std::string argv[]);
 
-  private:
+private:
     void ProcessFile();
     void ProcessDir();
-    std::vector<std::string> ReadDirectory(std::string path);
+    void WriteLines(const std::vector<std::string> matched, std::string output);
+    bool MatchLine(std::string line, std::string rgx);
     std::vector<std::string> ReadLines(std::string path);
-    bool MatchLine(std::string line, std::string regex);
-    void WriteLines(std::string path);
+    std::vector<std::string> ReadDirectory(std::string path);
 };
 
 #endif

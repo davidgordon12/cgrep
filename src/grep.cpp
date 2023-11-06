@@ -9,14 +9,20 @@
 
 using namespace std;
 
+/*  Grep.cpp: GPL-2.0
+ *  Entry point for Grep processing
+ *  Written by David Gordon
+ *  Last Edited: November 06, 2023
+ */
 bool Grep::Process(int argc, string argv[]) {
+    string output;
     switch (argc) {
     /* If only one arg was provided after 'cgrep'
        1      2
     (cgrep [regex]),
     we will search the current directory with the provided regex. */
     case 2:
-        ProcessDir();
+        ProcessFile();
         break;
 
     /* If only 2 args were provided after 'cgrep'
@@ -37,25 +43,31 @@ bool Grep::Process(int argc, string argv[]) {
         break;
     }
 
-    string output;
-
     return false;
 }
 
-void Grep::ProcessDir() {
-
-}
-
 void Grep::ProcessFile() {
+    vector<string> lines = ReadLines("test.txt");
+    vector<string> matched;
 
+    for (string line : lines) {
+        if(!MatchLine(line, "hi"))
+            continue;
+        matched.push_back(line);
+    }
+
+    WriteLines(matched, "out.txt");
 }
+
+void Grep::ProcessDir() {}
 
 vector<string> Grep::ReadDirectory(string path) {}
 
 vector<string> Grep::ReadLines(string path) {
+    vector<string> lines;
     string line;
     ifstream input;
-    input.open("test.txt");
+    input.open(path);
 
     if (!input.is_open()) {
         perror("Error open");
@@ -63,10 +75,22 @@ vector<string> Grep::ReadLines(string path) {
     }
 
     while (getline(input, line)) {
-        cout << line << endl;
+        lines.push_back(line);
     }
+
+    return lines;
 }
 
-bool Grep::MatchLine(string line, string regex) {}
+bool Grep::MatchLine(string line, string rgx) {
+    regex pattern(rgx);
+    return regex_search(line, pattern);
+}
 
-void Grep::WriteLines(string path) {}
+void Grep::WriteLines(vector<string> matched, string output) {
+    ofstream file;
+    file.open(output);
+    for(string line : matched) {
+        file << line + "\n";
+    }
+    file.close();
+}
