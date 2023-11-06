@@ -1,7 +1,7 @@
 FLAGS := -Iinclude
 TARGET := cgrep.exe
 
-args := public: -o 
+args := public:
 
 source_files := src/*.cpp
 
