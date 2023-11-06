@@ -9,26 +9,45 @@
 
 using namespace std;
 
-bool Grep::process(int argc, string argv[]) {
-    switch (argc) { //  1      2
-    /* If only one arg was provided after 'cgrep' (cgrep [regex]),
+bool Grep::Process(int argc, string argv[]) {
+    switch (argc) {
+    /* If only one arg was provided after 'cgrep'
+       1      2
+    (cgrep [regex]),
     we will search the current directory with the provided regex. */
     case 2:
-        break; //  1      2           3
-    /* If only 2 args were provided after 'cgrep' (cgrep [regex] <file ||
-    directory>), then we will print to stdout by default. */
+        ProcessDir();
+        break;
+
+    /* If only 2 args were provided after 'cgrep'
+       1      2       3
+    (cgrep [regex] <input>),
+    then we will print to stdout by default. */
     case 3:
-        break; //  1      2           3               4
-    /* If all 3 args were provided after 'cgrep' (cgrep [regex] <file ||
-    directory> <output>), then we will print to the output path provided, and
-    stdout will be used as a fallback.  */
+        ProcessFile();
+        break;
+
+    /* If all 3 args were provided after 'cgrep'
+       1      2       3        4
+    (cgrep [regex] <input> <output>),
+    then we will print to the output path provided,
+    and stdout will be used as a fallback. */
     case 4:
+        ProcessFile();
         break;
     }
 
     string output;
 
     return false;
+}
+
+void ProcessDir() {
+
+}
+
+void ProcessFile() {
+    
 }
 
 vector<string> ReadDirectory(string path) {}

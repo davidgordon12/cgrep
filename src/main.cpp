@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     }
 
     Grep grep;
-    bool result = grep.process(argc, args);
+    bool result = grep.Process(argc, args);
 
     if (!result) {
         cerr << "Ran into an error. Exiting." << endl;
