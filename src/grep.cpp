@@ -42,17 +42,17 @@ bool Grep::Process(int argc, string argv[]) {
     return false;
 }
 
-void ProcessDir() {
+void Grep::ProcessDir() {
 
 }
 
-void ProcessFile() {
-    
+void Grep::ProcessFile() {
+
 }
 
-vector<string> ReadDirectory(string path) {}
+vector<string> Grep::ReadDirectory(string path) {}
 
-vector<string> ReadLines(string path) {
+vector<string> Grep::ReadLines(string path) {
     string line;
     ifstream input;
     input.open("test.txt");
@@ -67,6 +67,6 @@ vector<string> ReadLines(string path) {
     }
 }
 
-bool MatchLine(string line, string regex) {}
+bool Grep::MatchLine(string line, string regex) {}
 
-void WriteLines(string path) {}
+void Grep::WriteLines(string path) {}
