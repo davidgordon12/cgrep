@@ -12,7 +12,7 @@ Clone the repo. With make installed, run ```make``` in the root
 of the project. <br />
 Without make, you can run ```g++ src\main.cpp src\help.cpp src\grep.cc -Iinclude -o cgrep.exe```
 ### Running
-Run cgrep with ```cgrep [regex] <input> <output>``` where input and output are text based files. Optionally, cgrep can be run without any output argument provided. This will automatically log to the console
+Run cgrep with ```cgrep [regex] <input> <output>``` where input and output are ascii-based text files. Optionally, cgrep can be run without any output argument provided. This will automatically log to the console
 ## Testing
 ### Preqrequisites
 - cmake
