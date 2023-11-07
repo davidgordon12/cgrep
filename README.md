@@ -1,5 +1,6 @@
 # cgrep - Simple grep tool for Windows
-Reimplementation of the Linux grep program for Windows. Currently under development.
+Reimplementation of the Linux grep program for Windows. cgrep is over twice as fast(sometimes) as the grep package from the chocolatey package manager. Currently under development.
+![Runtime Speed](assets/runtime.png) <br />
 ## Usage
 ```cgrep [regex] <input> <output>```
 ## Building
