@@ -3,33 +3,28 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <windows.h>
+#include <locale>
+#include <codecvt>
 
 #include "grep.h"
 #include "help.h"
 
 using namespace std;
-
 /*  Grep.cpp: GPL-2.0
  *  Entry point for Grep processing
  *  Written by David Gordon
  *  Last Edited: November 06, 2023
  */
-bool Grep::Process(int argc, string argv[]) {
-    string output;
+void Grep::Process(int argc, string argv[]) {
     switch (argc) {
-    /* If only one arg was provided after 'cgrep'
-       1      2
-    (cgrep [regex]),
-    we will search the current directory with the provided regex. */
-    case 2:
-        ProcessFile();
-        break;
-
     /* If only 2 args were provided after 'cgrep'
        1      2       3
     (cgrep [regex] <input>),
     then we will print to stdout by default. */
     case 3:
+        rgx = argv[1];
+        input = argv[2];
         ProcessFile();
         break;
 
@@ -39,42 +34,39 @@ bool Grep::Process(int argc, string argv[]) {
     then we will print to the output path provided,
     and stdout will be used as a fallback. */
     case 4:
+        rgx = argv[1];
+        input = argv[2];
+        output = argv[3];
         ProcessFile();
         break;
     }
-
-    return false;
 }
 
 void Grep::ProcessFile() {
-    vector<string> lines = ReadLines("test.txt");
+    vector<string> lines = ReadLines(input);
     vector<string> matched;
 
     for (string line : lines) {
-        if(!MatchLine(line, "hi"))
+        if (!MatchLine(line, rgx))
             continue;
         matched.push_back(line);
     }
 
-    WriteLines(matched, "out.txt");
+    WriteLines(matched, output);
 }
-
-void Grep::ProcessDir() {}
-
-vector<string> Grep::ReadDirectory(string path) {}
 
 vector<string> Grep::ReadLines(string path) {
     vector<string> lines;
     string line;
-    ifstream input;
-    input.open(path);
+    ifstream file;
+    file.open(path);
 
-    if (!input.is_open()) {
+    if (!file.is_open()) {
         perror("Error open");
         exit(EXIT_FAILURE);
     }
 
-    while (getline(input, line)) {
+    while (getline(file, line)) {
         lines.push_back(line);
     }
 
@@ -87,10 +79,25 @@ bool Grep::MatchLine(string line, string rgx) {
 }
 
 void Grep::WriteLines(vector<string> matched, string output) {
-    ofstream file;
-    file.open(output);
-    for(string line : matched) {
-        file << line + "\n";
+    if (regex_search(output, regex("[.]"))) {
+        ofstream file;
+        file.open(output);
+
+        if (!file.is_open()) {
+            perror("Error open");
+            exit(EXIT_FAILURE);
+        }
+
+        for (string line : matched) {
+            file << line + "\n";
+        }
+
+        file.close();
+        return;
     }
-    file.close();
+
+    for (string line : matched) {
+        cout << line << endl;
+    }
+
 }

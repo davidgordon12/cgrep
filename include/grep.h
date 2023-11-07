@@ -9,12 +9,16 @@
 #include <vector>
 
 class Grep {
+private:
+    std::string rgx;
+    std::string input;
+    std::string output;
+
 public:
-    bool Process(int argc, std::string argv[]);
+    void Process(int argc, std::string argv[]);
 
 private:
     void ProcessFile();
-    void ProcessDir();
     void WriteLines(const std::vector<std::string> matched, std::string output);
     bool MatchLine(std::string line, std::string rgx);
     std::vector<std::string> ReadLines(std::string path);

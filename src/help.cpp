@@ -5,12 +5,12 @@
 using namespace std;
 
 void usage() {
-    cout << "USAGE: cgrep [regex] --FLAGS" << endl;
+    cout << "USAGE: cgrep [regex] <input> <output>" << endl;
     cout << "Enter cgrep --help to see options" << endl;
 }
 
 bool validate(int argc) {
-    if (argc < 2) {
+    if (argc < 3) {
         cout << "Too few arguments" << endl;
         usage();
         return false;

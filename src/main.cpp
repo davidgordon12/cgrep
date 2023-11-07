@@ -10,17 +10,13 @@ int main(int argc, char *argv[]) {
     if (!validate(argc))
         return -1;
 
-    //    1     2           3               4
-    // cgrep [regex] <file || directory> <output>
+    //    1     2       3      4
+    // cgrep [regex] <file> <output>
     string args[MAX_ARGS];
-    for (int i = 1; i < argc; ++i) {
+    for (int i = 0; i < argc; ++i) {
         args[i] = argv[i];
     }
 
     Grep grep;
-    bool result = grep.Process(argc, args);
-
-    if (!result) {
-        cerr << "Ran into an error. Exiting." << endl;
-    }
+    grep.Process(argc, args);
 }
